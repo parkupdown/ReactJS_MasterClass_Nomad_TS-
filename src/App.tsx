@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FormEvent, useState } from "react";
+import styled, { keyframes } from "styled-components";
+export default function App() {
+  const [value, setValue] = useState<string | number>("");
+  const onChange = (event: React.FormEvent<HTMLInputElement>) => {
+    setValue(event.currentTarget.value);
+  };
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.dir(e.currentTarget[0]); //변화를 일으키는놈 <여기에 들어감!>
+  }; // 이벤트가 어디서왔지<어떤이벤트가 변화를일으키지>
 
-function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <form onSubmit={onSubmit}>
+        <input
+          onChange={onChange}
+          value={value}
+          type="text"
+          placeholder="usename"
+        />
+        <button>Login</button>
+      </form>
     </div>
   );
 }
-
-export default App;
