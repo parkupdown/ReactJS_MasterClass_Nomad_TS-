@@ -7,6 +7,6 @@ declare module "styled-components" {
     //여기가 내가 사용할 테마
     textColor: string;
     bgcolor: string;
-    btncolor: string;
+    accentColor: string;
   }
 }
