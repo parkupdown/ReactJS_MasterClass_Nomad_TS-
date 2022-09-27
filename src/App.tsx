@@ -1,26 +1,23 @@
 import React, { FormEvent, useState } from "react";
 import styled, { keyframes } from "styled-components";
-export default function App() {
-  const [value, setValue] = useState<string | number>("");
-  const onChange = (event: React.FormEvent<HTMLInputElement>) => {
-    setValue(event.currentTarget.value);
-  };
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.dir(e.currentTarget[0]); //변화를 일으키는놈 <여기에 들어감!>
-  }; // 이벤트가 어디서왔지<어떤이벤트가 변화를일으키지>
 
+const Container = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => props.theme.bgcolor};
+`;
+const H1 = styled.h1`
+  color: ${(props) => props.theme.textColor};
+`;
+export default function App() {
   return (
     <div>
-      <form onSubmit={onSubmit}>
-        <input
-          onChange={onChange}
-          value={value}
-          type="text"
-          placeholder="usename"
-        />
-        <button>Login</button>
-      </form>
+      <Container>
+        <H1>hello</H1>
+      </Container>
     </div>
   );
 }
