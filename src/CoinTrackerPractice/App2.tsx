@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from "react";
 import styled, { createGlobalStyle, keyframes } from "styled-components";
-import Router from "./Router";
+import Router from "../Router";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -66,11 +66,11 @@ a{
 }
 `;
 
-export default function App() {
+export default function App2() {
   return (
     <>
       <GlobalStyle />
       <Router />
     </>
   );
-}
+} //전체적으로 css를 적용해준것뿐이다 쫄지말자
