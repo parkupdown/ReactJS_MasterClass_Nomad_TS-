@@ -35,7 +35,11 @@ footer, header, hgroup, main, menu, nav, section {
     display: none;
 }
 body {
-  line-height: 1;
+  font-weight: 300;
+  font-family: 'Source Sans Pro', sans-serif;
+  background-color:${(props) => props.theme.bgcolor};
+  color:${(props) => props.theme.textColor};
+  line-height: 1.2;
 }
 menu, ol, ul {
   list-style: none;
