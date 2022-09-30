@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import fetchCoins from "../api";
+import { fetchCoins } from "../api";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -43,6 +43,15 @@ const Title = styled.h1`
   color: ${(props) => props.theme.accentColor};
 `;
 
+const Loader = styled.span`
+  text-align: center;
+`;
+
+const IMG = styled.img`
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+`;
 interface CoinInterface {
   id: string;
   name: string;
@@ -53,18 +62,9 @@ interface CoinInterface {
   type: string;
 }
 
-const Loader = styled.span`
-  text-align: center;
-`;
-
-const IMG = styled.img`
-  width: 25px;
-  height: 25px;
-  margin-right: 10px;
-`;
-
 export default function Coins() {
   const { isLoading, data } = useQuery<CoinInterface[]>("allCoins", fetchCoins);
+  console.log(isLoading, data);
 
   /*
   const [coins, setCoins] = useState<CoinInterface[]>([]);
