@@ -1,13 +1,12 @@
-import { stat } from "fs";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useParams, useRouteMatch } from "react-router-dom";
 import { Switch, Route } from "react-router";
 import styled from "styled-components";
-import Chart from "../Chart";
+import Chart from "./Chart";
 import Price from "./Price";
 import { useQuery } from "react-query";
 import { fetchCoinInfo, fetchCoinPrice } from "../api";
-
+import { Helmet } from "react-helmet";
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
@@ -55,6 +54,7 @@ const Loader = styled.span`
 `;
 interface RouteState {
   name: string;
+  id: string;
 }
 interface ITag {
   id: string;
@@ -145,6 +145,18 @@ const Tab = styled.span<{ isActive: boolean }>`
   }
 `;
 
+const BackButton = styled.button`
+  padding: 10px;
+  background-color: #cfeb96;
+  border: none;
+  border-radius: 10px;
+  font-weight: 350;
+  color: ${(props) => props.theme.accentColor};
+  &:hover {
+    color: white;
+  }
+`;
+
 export default function Coin() {
   const { coinId } = useParams<{ coinId: string }>(); //원래는 coinId를 이용하여 api를 한번더 부름!
   const { isLoading: infoLoading, data: infoData } = useQuery<infoData>(
@@ -156,38 +168,27 @@ export default function Coin() {
     () => fetchCoinPrice(coinId)
   );
   const { state } = useLocation<RouteState>();
-  /*const [load, setLoad] = useState(true);
-  const [info, setInfo] = useState<infoData>();
-  const [priceInfo, setPriceInfo] = useState<priceData>();*/
-
-  /*const InfoData = async () => {
-    const reponseInfo = await (
-      await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)
-    ).json();
-    setInfo(reponseInfo);
-
-    setLoad(false);
-  };
-  const PriceData = async () => {
-    const reponsePrice = await (
-      await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)
-    ).json();
-    setPriceInfo(reponsePrice);
-
-    setLoad(false);
-  };
- 
-  useEffect(() => {
-    InfoData();
-    PriceData();
-  }, [coinId]);*/
   const priceMatch = useRouteMatch("/:coinId/price"); //여기 URL에 있는지! 있으면 object를 받음
-  console.log(priceMatch);
   const chartMatch = useRouteMatch("/:coinId/chart"); //여기 URL에 있는지! 없으면 Null을 받음
   const loading = infoLoading || tickersLoading;
   return (
     <Container>
+      <Helmet>
+        <title>
+          {" "}
+          {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
+        </title>
+      </Helmet>
       <Header>
+        {priceMatch !== null || chartMatch !== null ? (
+          <Link to={`/${coinId}`}>
+            <BackButton>뒤로가기</BackButton>
+          </Link>
+        ) : (
+          <Link to={`/`}>
+            <BackButton>뒤로가기</BackButton>
+          </Link>
+        )}
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
@@ -231,11 +232,11 @@ export default function Coin() {
             </Tab>
           </Tabs>
           <Switch>
-            <Route path={`/${coinId}/price`}>
-              <Price />
+            <Route path="/:coinId/price">
+              <Price coinId={coinId} />
             </Route>
-            <Route path={`/${coinId}/chart`}>
-              <Chart />
+            <Route path="/:coinId/chart">
+              <Chart coinId={coinId} />
             </Route>
           </Switch>
         </>
@@ -243,3 +244,28 @@ export default function Coin() {
     </Container>
   );
 }
+/*const [load, setLoad] = useState(true);
+  const [info, setInfo] = useState<infoData>();
+  const [priceInfo, setPriceInfo] = useState<priceData>();*/
+
+/*const InfoData = async () => {
+    const reponseInfo = await (
+      await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)
+    ).json();
+    setInfo(reponseInfo);
+
+    setLoad(false);
+  };
+  const PriceData = async () => {
+    const reponsePrice = await (
+      await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)
+    ).json();
+    setPriceInfo(reponsePrice);
+
+    setLoad(false);
+  };
+ 
+  useEffect(() => {
+    InfoData();
+    PriceData();
+  }, [coinId]);*/

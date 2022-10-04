@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
-
+import { Helmet } from "react-helmet";
 const Container = styled.div`
   padding: 0px 20px;
   max-width: 480px;
@@ -80,6 +80,9 @@ export default function Coins() {
 
   return (
     <Container>
+      <Helmet>
+        <title>코인</title>
+      </Helmet>
       <Header>
         <Title>Coin</Title>
       </Header>
@@ -89,9 +92,7 @@ export default function Coins() {
         <CoinList>
           {data?.slice(0, 20).map((coin) => (
             <Coin key={coin.id}>
-              <Link
-                to={{ pathname: `/${coin.id}`, state: { name: coin.name } }}
-              >
+              <Link to={`/${coin.id}`}>
                 <IMG
                   src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
                 />
