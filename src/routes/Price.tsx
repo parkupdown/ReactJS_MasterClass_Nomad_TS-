@@ -58,7 +58,7 @@ function Price({ coinId }: CoinId) {
       ) : (
         <CoinList>
           {data?.map((item) => (
-            <Coin key={item.open}>
+            <Coin key={coinId}>
               Day : {new Date(item.time_open * 1000).toUTCString()}
               최고가 : <Red>{item.high} $</Red> 최저가:{" "}
               <Blue>{item.low} $</Blue>

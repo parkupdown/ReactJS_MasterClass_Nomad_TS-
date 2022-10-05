@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
 import { Helmet } from "react-helmet";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { isDarkAtom } from "../atoms";
 const Container = styled.div`
   padding: 0px 20px;
   max-width: 480px;
@@ -22,7 +24,7 @@ const CoinList = styled.ul``;
 
 const Coin = styled.li`
   background-color: white;
-  color: ${(props) => props.theme.bgcolor};
+  color: ${(props) => props.theme.textColor};
   margin-bottom: 10px;
   padding: 20px;
   border-radius: 15px;
@@ -64,7 +66,7 @@ interface CoinInterface {
 
 export default function Coins() {
   const { isLoading, data } = useQuery<CoinInterface[]>("allCoins", fetchCoins);
-  console.log(isLoading, data);
+  const setDarkAtom = useSetRecoilState(isDarkAtom);
 
   /*
   const [coins, setCoins] = useState<CoinInterface[]>([]);
@@ -85,6 +87,13 @@ export default function Coins() {
       </Helmet>
       <Header>
         <Title>Coin</Title>
+        <button
+          onClick={() => {
+            setDarkAtom((current) => !current);
+          }}
+        >
+          Toggle Mode
+        </button>
       </Header>
       {isLoading ? (
         <Loader>로딩중...</Loader>

@@ -2,6 +2,8 @@ import { useQuery } from "react-query";
 import { useLocation, useParams } from "react-router-dom";
 import { fetchCoinHistory } from "../api";
 import ReactApexChart from "react-apexcharts";
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "../atoms";
 interface ChartProps {
   coinId: string;
 }
@@ -14,6 +16,7 @@ interface HistoricalData {
   open: number;
   time_close: number;
   time_open: number;
+  isDark: boolean;
 }
 
 function Chart({ coinId }: ChartProps) {
@@ -27,6 +30,8 @@ function Chart({ coinId }: ChartProps) {
   //{}이걸넣으면 API받아오지못한다.
   console.log(data);
 
+  const isDark = useRecoilValue(isDarkAtom);
+
   return (
     <div>
       {isLoading ? (
@@ -39,7 +44,7 @@ function Chart({ coinId }: ChartProps) {
           ]}
           options={{
             theme: {
-              mode: "dark",
+              mode: isDark ? "dark" : "light",
             },
             chart: {
               height: 300,
