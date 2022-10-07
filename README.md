@@ -54,9 +54,59 @@ UsesetRecoilstate()
 
 ```
 
+## 타입스크립트 학습
+
+### 타입스크립트는 강타입 프로그래밍 언어로 코드를 실행하기 전에 오류를 알려준다.
+
+타입스크립트에서 타입을 정의해주는 방법은 크게 두 가지가 있다.
+
+1. 데이터와 변수의 타입을 명시적으로 정의
+```TS
+const arr:string = ""
+
+```
+2. 데이터와 변수의 타입이 추론되어 자동으로 정의됨
+```TS
+const arr ="" //=>string으로 자동인식
+```
+*명시적 정의는 적을수록 좋다*
+Type을 설명할 때 기본은 : 로 설명한다.
+
+```TS
+const :{name:string, age:number}   ={
+name:"sangha"
+age:26
+}
+```
+
+type을 지정하는 방법 중 Alias 가 있다.
+
+```TS
+type CanCan{
+name:string,
+age?:number//?를 붙이면 number|undefined로 정의된다. 즉 없을 수 도 있다는 말
 
 
+const wow : CanCan= { //이렇게 타입을 정의해주는 방법이 Alias
+name:"sangha",
+age:26
 
+}
+
+}
+```
+
+타입앞에 readonly를 붙여주면 수정이 안되게 해준다.
+```TS
+const arr:readonly number[] =[1,2,3]
+
+arr.push(4) //이러면 오류가 남 readonly를 붙여줘서 수정이 불가능하기 때문이다.
+```
+
+##any
+
+이는 비어있는 값을 쓰면 주로 나온다. 타입스크립트를 벗어나고 싶을 때 쓰면 된다.
+자주쓰는것은 지양해야한다.
 
 
 
