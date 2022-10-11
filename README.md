@@ -146,4 +146,35 @@ function EEE(): never {
 //이렇게 절대 return 값이 없을 때 사용
 
 ```
-
+ ##call signature
+ 함수에서 타입을 분리할 수 있게해준다.
+ ```TS
+ type ADD = (a: number, b: number) => number;//이게 call signature
+ //이를 call signuture라고한다. 분리가가능!
+const add: ADD = (a, b) => a + b;
+//원래
+ const add=(a:string,b:string)=>{console.log("asd"}
+ ```
+ ## overloading 
+ 이는 call signature가 2개 이상일 때이다.
+ 
+ ```TS
+ type Call={
+ (a:string,b:string):string
+ (a:number,b:number):number
+ }//이처럼 call signature가 2개 이상 사용될 때 overloading 이라한다.
+```
+ ## 다형성(polymorphism)
+ 인자의 타입이 다양한 형태를 가질때
+Generic타입!
+ 
+```TS
+type SuperPrint = {
+  <Placeholder>(arr: Placeholder[]): void;
+};
+const superPrint: SuperPrint = (arr) => {
+  arr.forEach((i) => console.log(i));
+};
+superPrint([1, 2, 3, 4]);//이렇게하면 함수 안의 인자에 따라 arr의 타입이 변경된다.
+   //any와 다른점은 인자의 타입에 대한 정보를 잃지 않는다는 점이다.
+```
