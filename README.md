@@ -146,7 +146,7 @@ function EEE(): never {
 //이렇게 절대 return 값이 없을 때 사용
 
 ```
- ##call signature
+ ## call signature
  함수에서 타입을 분리할 수 있게해준다.
  ```TS
  type ADD = (a: number, b: number) => number;//이게 call signature
