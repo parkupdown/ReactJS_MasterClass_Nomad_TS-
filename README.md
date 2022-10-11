@@ -103,11 +103,47 @@ const arr:readonly number[] =[1,2,3]
 arr.push(4) //이러면 오류가 남 readonly를 붙여줘서 수정이 불가능하기 때문이다.
 ```
 
-##any
+## any
 
 이는 비어있는 값을 쓰면 주로 나온다. 타입스크립트를 벗어나고 싶을 때 쓰면 된다.
 자주쓰는것은 지양해야한다.
 
+## unknown , void , never
 
+### unknown 
+unknown은 TS의 보호를 받는다. 
+```TS
+let a: unknown; //TS의 보호를받음 => 어떤 작업을 하려면 이 변수의 타입을 먼저 확인해야함
+let b = a + 1;
+if (typeof a === "number") {
+  let b = a + 1;
+} //타입에 따른 결과가 다를때 이렇게 사용
 
+```
+이렇게 unknown은 아직 타입에 대한 정보를 확신할 수 없을때 사용하면된다.
+
+### void
+
+void는 아무것도 return 하지않는함수에 쓰인다.
+```TS
+function hello(): void {
+  console.log("x");
+}
+const c = hello();
+
+//만약
+c.toUpperCase()//오류발생
+
+```
+return 값이 없기 때문이다.(void)
+
+## never
+never은 함수가 절대 return 하지 않을 때 발생한다.
+```TS
+function EEE(): never {
+  throw new Error("오류!");
+}
+//이렇게 절대 return 값이 없을 때 사용
+
+```
 
