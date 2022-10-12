@@ -3,12 +3,16 @@
 
 
 react-query는 편리한 방식으로 데이터를 fetch 할 수 있다.
+## Usequery()
+
 ```JS
 const {isLoading,data}=useQuery("key",패치함수)
 //이렇게 useQuery는 isLoading과 data를 반환한다. 그리고 key와 패치함수를 변수인자로 받는다.
-//그리고 이때 data에 대한 설명은 필요하다.(타입스크립트) ~~패치해온 데이터에 대한 설명~~
+//그리고 이때 data에 대한 설명은 필요하다.
 ```
-또 router에 대해 학습하였다.
+const {isLoading, data} =useQuery<데이터에대한설명>("key",패치함수)
+
+## Router
 router는 어떠한 URL로 이동을 가능하게 한다. 이동했을 때의 어떤 컴포넌트를 보여줄지는 <Route>를 사용하면된다.
 ```JS
 <Route path="/:변수명/chart">// /:다음에 오는 변수명은 URL이 어떤 변수값을 갖는다고 말해준다.
@@ -35,7 +39,7 @@ Link는 string을 a태그로 변경하는 것과 같다. Link는 URL을 옮김�
 UseRouteMatch("")는 ""에있는 URL에 현재 지금 있는지를 확인하고 boolean타입을 return한다.
 이를 이용해 뒤로가기버튼을 만들었다.
 
-###Recoil
+### Recoil
 Recoil은 React-Js에서 사용할 수 있는 state management library이다.
 Recoil이 없다면 props는 최상위 컴포넌트에서 최하위 컴포넌트까지 보내야하는 일이 발생 할 수 있다.
 이렇게 되면 props를 보내고 type에 대한 설명을 계속해서 해주어야하는 번거로움이 발생한다.
